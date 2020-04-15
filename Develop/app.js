@@ -12,25 +12,25 @@ const render = require("./lib/htmlRenderer");
 ​
 
 
-getName() {
-    inquirer
-     .prompt([
-       {
-         type: "input",
-         name: "name",
-         message: "What is your name?"
-         }
-     ])
-   .then(name => {
-       let empName = name.name;
-       getName(empName);
-       console.log(empName);
+// getName() {
+//     inquirer
+//      .prompt([
+//        {
+//          type: "input",
+//          name: "name",
+//          message: "What is your name?"
+//          }
+//      ])
+//    .then(name => {
+//        let empName = name.name;
+//        getName(empName);
+//        console.log(empName);
    
       
-   });
-}
-getName();
-//    }
+//    });
+// }
+// getName();
+// //    }
 // }
 // console.log("this shouldn't be that hard...")
 

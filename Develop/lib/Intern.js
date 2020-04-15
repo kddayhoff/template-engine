@@ -8,14 +8,11 @@ class Intern extends Employee {
     }
 
     getSchool() {
-        return this.getSchool;
+        return this.school;
     }
     getRole() {
         return "Intern";
     }
 }
 
-const intern = new Intern("", 1, "", "");
-
-console.log(intern)
-
+module.exports = Intern;
