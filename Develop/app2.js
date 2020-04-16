@@ -3,7 +3,7 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
 const fs = require("fs");
-const OUTPUT_DIR = path.resolve(__dirname, "output");
+const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const inquirer = require("inquirer");
@@ -32,14 +32,14 @@ function getInfo() {
             message: "What is your email address?"
         },
         {
-            type: "list",
+            type: "choice",
             message: "What is your role?",
+            name: "role",
             choices: [
               "Intern", 
               "Engineer", 
               "Manager"
-            ],
-            name: "role",
+            ]
           }]
         )
         }
@@ -75,25 +75,13 @@ function getInfo() {
                         .then((answerInt) => {
                             let newIntern = new Intern(
                                 choices.name, choices.id, choices.email, answerInt.school);
-                            team.push(newIntern);   
+                            team.push(newIntern);
+                        getTeam();
                      });
                     
                     }
                 })
-              break;
-        case "Finish Team":
-          console.log(team);
-          if (team.length > 0) {
-            console.log("all done!");
-            writeHTML(render(team));
-          } else {
-            console.log("no team members");
-          }
-          break;
-        default:
-          break;
             }
         })
     }
     getInfo();
-    
