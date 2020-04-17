@@ -21,7 +21,8 @@ On the terminal/gitbash, enter node app.js. From there the user will be prompted
 ## Contact
 
 kddayhoff@gmail.com
-https://github.com/kddayhoff
+https://github.com/kddayhoff 
+<br>
 www.linkedin.com/in/kddayhoff
 ​
 ## License
