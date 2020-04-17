@@ -8,26 +8,11 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const inquirer = require("inquirer");
 
-
+//empty array for newly built team
 let team = []; 
-//ask base Employee questions
-    
-         
-const getTeam = () => {
-    inquirer
-    .prompt ([
-       {
-          type: "list",
-          message: "What would you like to do?",
-          choices: ["Build Team", "Finish Team"],
-          name: "newTeam",
-        }
-    ])
-}
 
-function getInfo() {
-    inquirer
-     .prompt([
+//ask base Employee questions    
+const getInfo = [
        {
             type: "input",
             name: "name",
@@ -55,16 +40,27 @@ function getInfo() {
             ],
             name: "role",
           }]
-        )
-    // build team with const team empty array    
-  
+        
+//initialize questions for team members w/ inquirer starting with the choice to build a team or complete it
+        getTeam = () => {
+            inquirer
+              .prompt([
+                {
+                  type: "list",
+                  message: "What would you like to do?",
+                  choices: ["Build Team", "Finish Team"],
+                  name: "newTeam",
+                },
+              ])
+   
+   //builds team based on roles selected   
           .then((response) =>  {
               console.log(response)
               const buildTeam = response.newTeam;
               switch (buildTeam) {
                   case "Build Team":
                       inquirer
-                      .prompt(questions)
+                      .prompt(getInfo)
                       .then((choices) => {
           //should the user choose Intern:      
                         if (choices === "Intern") {
@@ -130,6 +126,14 @@ function getInfo() {
             }
         })   
     }  
-
-    getInfo();
-    
+    getTeam();
+// Write to Page
+const writeHTML = (HTML) => {
+  console.log(HTML);
+  fs.writeFileSync(outputPath, HTML, (err) => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log("Success!");
+  });
+};
