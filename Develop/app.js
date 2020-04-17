@@ -55,7 +55,6 @@ const getInfo = [
    
    //builds team based on roles selected   
           .then((response) =>  {
-              console.log(response)
               const buildTeam = response.newTeam;
               switch (buildTeam) {
                   case "Build Team":
@@ -63,23 +62,22 @@ const getInfo = [
                       .prompt(getInfo)
                       .then((choices) => {
           //should the user choose Intern:      
-                        if (choices === "Intern") {
-                        console.log("intern");
+                        if (choices.role === "Intern") {
                         inquirer
                         .prompt( {  
                             type: "input", 
                             message: "What school did you attend?",
                             name: "school"
                         })
-                        .then((answerInt) => {
+                        .then((answer) => {
                             let newIntern = new Intern(
-                                choices.name, choices.id, choices.email, answerInt.school);
+                                choices.name, choices.id, choices.email, answer.school);
                             team.push(newIntern);    
                         getTeam()  
                      });
                     }
             //should the user choose Engineer:
-                        else if (choices === "Engineer") {
+                        else if (choices.role === "Engineer") {
                             console.log("engineer");
                             inquirer
                             .prompt( {
@@ -87,15 +85,15 @@ const getInfo = [
                                 message: "What is your Github username?",
                                 name: "github"
                             })
-                        .then((answerEng) => {
+                        .then((answer) => {
                           let newEngineer = new Engineer
-                             (choices.name, choices.id, choices.email, answerEng.github);
+                             (choices.name, choices.id, choices.email, answer.github);
                           team.push(newEngineer);
                          getTeam();      
                         });
                     }
              //Should the user choose Manager:       
-                        else (choices === "Manager") 
+                        else if (choices.role === "Manager") {
                             console.log("manager");
                             inquirer
                             .prompt( {
@@ -103,22 +101,22 @@ const getInfo = [
                                 message: "What is your office phone number",
                                 name: "number"
                             })
-                        .then((answerMan) => {
-                          let newManager = new Manager(choices.name, choices.id, choices.email, answerMan.number);
+                        .then((answer) => {
+                          let newManager = new Manager(choices.name, choices.id, choices.email, answer.number);
                           team.push(newManager);
                         getTeam();    
-                        })
+                        });
+                      }
                     });
                 break;
          //should the user wish to finish team:       
             case "Finish Team":
                 console.log(team);
               if (team.length > 0) {
-                console.log("all done!");
             writeHTML(render(team));
             } 
             else {
-            console.log("no team members");
+            console.log("no team members found");
            }
           break;
         default:
